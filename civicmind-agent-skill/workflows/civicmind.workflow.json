@@ -1,0 +1,126 @@
+{
+  "name": "CivicMind Agent Workflow",
+  "version": "0.1.0",
+  "description": "Multi-agent workflow for public policy and business intelligence analysis.",
+  "nodes": [
+    {
+      "id": "task_parser",
+      "type": "agent",
+      "name": "Research Task Parser",
+      "output": "research_plan"
+    },
+    {
+      "id": "collection",
+      "type": "agent",
+      "name": "Information Collection Agent",
+      "input": "research_plan",
+      "output": "source_pool"
+    },
+    {
+      "id": "cleaning",
+      "type": "agent",
+      "name": "Information Cleaning Agent",
+      "input": "source_pool",
+      "output": "clean_sources"
+    },
+    {
+      "id": "credibility",
+      "type": "agent",
+      "name": "Source Credibility Agent",
+      "input": "clean_sources",
+      "output": "scored_sources"
+    },
+    {
+      "id": "extraction",
+      "type": "agent",
+      "name": "Entity Extraction Agent",
+      "input": "scored_sources",
+      "output": "structured_facts"
+    },
+    {
+      "id": "trend",
+      "type": "agent",
+      "name": "Trend Reasoning Agent",
+      "input": "structured_facts",
+      "output": "trend_analysis"
+    },
+    {
+      "id": "risk",
+      "type": "agent",
+      "name": "Risk Identification Agent",
+      "input": "structured_facts",
+      "output": "risk_matrix"
+    },
+    {
+      "id": "strategy",
+      "type": "agent",
+      "name": "Strategy Generation Agent",
+      "input": [
+        "trend_analysis",
+        "risk_matrix"
+      ],
+      "output": "strategy_recommendations"
+    },
+    {
+      "id": "report",
+      "type": "agent",
+      "name": "Report Generation Agent",
+      "input": [
+        "structured_facts",
+        "trend_analysis",
+        "risk_matrix",
+        "strategy_recommendations"
+      ],
+      "output": "final_report"
+    },
+    {
+      "id": "quality",
+      "type": "agent",
+      "name": "Quality Evaluation Agent",
+      "input": "final_report",
+      "output": "quality_review"
+    }
+  ],
+  "edges": [
+    [
+      "task_parser",
+      "collection"
+    ],
+    [
+      "collection",
+      "cleaning"
+    ],
+    [
+      "cleaning",
+      "credibility"
+    ],
+    [
+      "credibility",
+      "extraction"
+    ],
+    [
+      "extraction",
+      "trend"
+    ],
+    [
+      "extraction",
+      "risk"
+    ],
+    [
+      "trend",
+      "strategy"
+    ],
+    [
+      "risk",
+      "strategy"
+    ],
+    [
+      "strategy",
+      "report"
+    ],
+    [
+      "report",
+      "quality"
+    ]
+  ]
+}
